@@ -1,0 +1,21 @@
+[
+    {
+      "Product": "Parle G",
+      "Quantity": 12,
+      "Total": 16,
+      "Image": "parle.png"
+    },
+    {
+      "Product": "Loreal",
+      "Quantity": 3,
+      "Total": 10,
+      "Image": "loreal.png"
+    },
+    {
+      "Product": "Oreo",
+      "Quantity": 6,
+      "Total": 20,
+      "Image": "oreo.png"
+    }
+  ]
+  

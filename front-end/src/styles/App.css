@@ -1,0 +1,65 @@
+/* Apply a reset to remove default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body styles to set background and overall page style */
+  body {
+    background-color: grey; /* Grey background as per the requirement */
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Styles for the main container */
+  h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+  }
+  
+  div.product-container {
+    padding: 20px;
+  }
+  
+  /* Styles for the product list (flexbox for horizontal alignment) */
+  div.product-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap; /* This will allow wrapping to a new line if space is limited */
+    gap: 5px; /* Reduced gap between the product cards */
+  }
+  
+  /* Styles for each product card */
+  div.product-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  
+  div.product-card:hover {
+    transform: scale(1.05);
+  }
+  
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+  }
+  
+  h2 {
+    font-size: 18px;
+    margin: 10px 0;
+    color: black;
+  }
+  
+  p {
+    font-size: 14px;
+    color: grey;
+  }
+  
