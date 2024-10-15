@@ -1,40 +1,41 @@
-import React from "react";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
-import products from "./products.json"; // Import the JSON file
-import './styles/App.css'; // Import the App.css file for styling
+import React from 'react';
+import { BrowserRouter as Router, Route, useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar';  // Assuming you have a Navbar component
+import Sidebar from './components/Sidebar';  // Your Sidebar component
+import Shelf1 from './components/Shelf1';  // Importing Shelf1 component
+import Shelf2 from './components/Shelf2';  // Importing Shelf2 component
+import Shelf3 from './components/Shelf3';  // Importing Shelf3 component
+import Inventory from './components/Inventory';  // Your Inventory component
+import './styles/App.css';
 
 const App = () => {
-  return (
-    <div className="product-container"> {/* Use class for the container */}
-      <h1>Product Inventory</h1>
-      <div className="product-list"> {/* Class for the product listing */}
-        {products.map((product, index) => {
-          const percentage = Math.round((product.Quantity / product.Total) * 100);
-          return (
-            <div className="product-card" key={index}> {/* Use class for each product card */}
-              <img
-                src={`/images/${product.Image}`} // Adjust the path for your image files
-                alt={product.Product}
-                style={{ width: "100px", height: "100px" }}
-              />
-              <h2>{product.Product}</h2>
-              <CircularProgressbar
-                value={percentage}
-                text={`${percentage}%`}
-                styles={buildStyles({
-                  textColor: "black",
-                  pathColor: "green",
-                  trailColor: "lightgrey",
-                })}
-              />
-              <p>{product.Quantity} / {product.Total}</p>
+    return (
+        <Router>
+            <Navbar />
+            <div className="app-container">
+                <Sidebar />
+                <MainContent />
             </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+        </Router>
+    );
+};
+
+// MainContent component to handle routing with if-else
+const MainContent = () => {
+    const location = useLocation(); // Get current location
+
+    // Conditional rendering based on the current path
+    if (location.pathname === '/shelf1') {
+        return <Shelf1 />;
+    } else if (location.pathname === '/shelf2') {
+        return <Shelf2 />;
+    } else if (location.pathname === '/shelf3') {
+        return <Shelf3 />;
+    } else if (location.pathname === '/inventory') {
+        return <Inventory />;
+    } else { // Default to Shelf1 if no matching path
+        return <Shelf1 />;
+    }
 };
 
 export default App;
