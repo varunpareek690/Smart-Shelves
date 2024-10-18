@@ -5,5 +5,5 @@ This repo is for the project `smart-shelves` which is a NODEMCU based project ai
 
 Collaborated By:
 * Varun Pareek
-* Nitin Kumar Singh
+* Nitin Kumar Singh (aka Coder)
 * Shreyansh Goyal
