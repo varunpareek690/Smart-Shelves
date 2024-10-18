@@ -1,0 +1,165 @@
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+  background-color: grey;
+  font-family: 'Arial', sans-serif;
+  padding-top: 60px; /* Give space for the fixed navbar */
+}
+
+/* Navbar styling */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #333;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+/* Sidebar styling */
+/* General styling for the sidebar */
+.sidebar {
+  padding: 20px;
+  background-color: #f4f4f4;
+  width: 250px;
+  height: calc(100% - 60px); /* Adjusted to fit below the navbar */
+  position: fixed;
+  top: 60px;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Accordion styling */
+.accordion-button {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #fff;
+}
+
+.accordion-body {
+  padding: 10px;
+}
+
+/* Shelf styling */
+
+/* Hover effect: border turns blue */
+
+
+/* Styles for the main container */
+h1 {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+  div.product-container {
+    margin-left: 270px; /* Give space for the fixed sidebar */
+    margin-top: 80px;   /* Give space for the fixed navbar */
+    padding: 20px;
+  }
+
+/* Styles for the product list */
+div.product-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Styles for each product card */
+div.product-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+div.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-details {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  text-align: center; /* Center text within the container */
+  gap: 5px; /* Add some spacing between the product name and progress bar */
+}
+
+
+img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+h2 {
+  font-size: 18px;
+  margin: 10px 0;
+  color: black;
+}
+
+p {
+  font-size: 14px;
+  color: grey;
+}
+
+.shelf-links {
+  display: flex; /* Align items vertically */
+  flex-direction: column; /* Stack links vertically */
+  gap: 10px; /* Space between links */
+  padding: 10px; /* Padding around the container */
+}
+
+.shelf {
+  display: block; /* Make the link a block element */
+  width: 100%; /* Full width */
+  padding: 10px; /* Padding inside the link */
+  font-size: 1rem; /* Normal font size */
+  text-decoration: none; /* Remove underline from links */
+  color: #007bff; /* Text color for links */
+  border: 2px solid transparent; /* Initial transparent border */
+  border-radius: 4px; /* Optional: rounded corners */
+  transition: border-color 0.3s, color 0.3s; /* Smooth transition on hover */
+}
+
+.shelf:hover {
+  color: #0056b3; /* Darker blue on hover */
+  border-color: blue; /* Change border color to blue on hover */
+}
+
+.shelf:focus {
+  outline: none; /* Remove default focus outline */
+  color: #0056b3; /* Change color when focused */
+  border-color: blue; /* Change border color when focused */
+}
+
+.progress-container {
+    width: 70px; /* Adjust this to set the desired width */
+    height: 70px; /* Adjust this to set the desired height */
+}
+
+.app-container {
+  display: flex; /* Enable flexbox layout */
+  flex-direction: row; /* Align items in a row */
+  margin-left: 270px; /* Space for the fixed sidebar */
+  margin-top: 80px;   /* Space for the fixed navbar */
+  gap: 20px; /* Optional: Add space between shelves */
+}

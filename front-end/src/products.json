@@ -1,0 +1,26 @@
+[
+  {
+      "Product": "Parle G",
+      "Quantity": 20,
+      "Total": 100,
+      "Image": "parle.png",
+      "Shelf": 1,
+      "Weight": 200 
+  },
+  {
+      "Product": "Loreal Shampoo",
+      "Quantity": 15,
+      "Total": 50,
+      "Image": "loreal.png",
+      "Shelf": 2,
+      "Weight": 300
+  },
+  {
+      "Product": "Oreo",
+      "Quantity": 10,
+      "Total": 30,
+      "Image": "oreo.png",
+      "Shelf": 3,
+      "Weight": 150
+  }
+]
