@@ -6,6 +6,7 @@ import Shelf1 from './components/Shelf1';  // Importing Shelf1 component
 import Shelf2 from './components/Shelf2';  // Importing Shelf2 component
 import Shelf3 from './components/Shelf3';  // Importing Shelf3 component
 import Inventory from './components/Inventory';  // Your Inventory component
+import Products from './components/Products'
 import './styles/App.css';
 
 const App = () => {
@@ -33,7 +34,10 @@ const MainContent = () => {
         return <Shelf3 />;
     } else if (location.pathname === '/inventory') {
         return <Inventory />;
-    } else { // Default to Shelf1 if no matching path
+    } 
+    else if(location.pathname === '/products'){
+        return <Products />;
+    }else { // Default to Shelf1 if no matching path
         return <Shelf1 />;
     }
 };

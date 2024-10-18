@@ -1,0 +1,125 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body styles */
+  body {
+    background-color: grey;
+    font-family: 'Arial', sans-serif;
+    padding-top: 60px; /* Leave space for the fixed navbar */
+  }
+  
+  /* Navbar styling */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+  }
+  
+  /* Sidebar styling */
+  .sidebar {
+    padding: 20px;
+    background-color: #f4f4f4;
+    width: 250px;
+    height: calc(100% - 60px); /* Adjusted to fit below the navbar */
+    position: fixed;
+    top: 60px;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Accordion styling */
+  .accordion-button {
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #fff;
+  }
+  
+  .accordion-body {
+    padding: 10px;
+  }
+  
+  /* Product container */
+  .products-container {
+    margin-left: 270px; /* Leave space for the fixed sidebar */
+    padding: 20px;
+  }
+  
+  .products-container h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+  }
+  
+  /* Styles for the product list */
+  .products-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
+  }
+  
+  /* Product card styles */
+  .product-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+  }
+  
+  .product-name {
+    font-size: 18px;
+    margin: 10px 0;
+    color: black;
+  }
+  
+  .product-weight,
+  .product-quantity {
+    font-size: 14px;
+    color: grey;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .products-container {
+      margin-left: 0; /* Sidebar won't affect the layout on smaller screens */
+      padding: 10px;
+    }
+  
+    .sidebar {
+      width: 100%; /* Sidebar takes full width on smaller screens */
+      height: auto;
+      position: relative;
+    }
+  
+    .products-list {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+  

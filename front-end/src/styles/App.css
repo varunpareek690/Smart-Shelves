@@ -53,21 +53,16 @@ body {
   padding: 10px;
 }
 
-/* Shelf styling */
 
-/* Hover effect: border turns blue */
-
-
-/* Styles for the main container */
 h1 {
   text-align: center;
   color: white;
   margin-bottom: 20px;
 }
 
-  div.product-container {
+  div.product-container, .shelf-container {
     margin-left: 270px; /* Give space for the fixed sidebar */
-    margin-top: 80px;   /* Give space for the fixed navbar */
+    /* margin-top: 80px;   Give space for the fixed navbar */
     padding: 20px;
   }
 
