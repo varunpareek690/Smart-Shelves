@@ -6,11 +6,11 @@ import '../styles/App.css'; // Importing the CSS for the styles
 
 const Shelf3 = () => {
     // Filter products specifically for Shelf 3
-    const shelfProducts = products.filter(product => product.Shelf === 3);
+    const shelfProducts = products.filter(product => product.Shelf ===4);
 
     return (
         <div className="shelf-container">
-            <h1>Shelf 3 Products</h1>
+            <h1>Shelf 3: Bottles</h1>
             <div className="product-list">
                 {shelfProducts.map((product, index) => {
                     const percentage = Math.round((product.Quantity / product.Total) * 100);
