@@ -6,12 +6,15 @@ const jwt = require('jsonwebtoken'); // Import jwt for token generation
 const User = require('./models/User'); // Ensure this points to your User model
 
 const app = express();
-const PORT = 5000;
+const PORT =8000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());  // Enable parsing of JSON request bodies
-
+let sensorData = {
+    weight: null,
+    distance: null,
+};
 // MongoDB connection
 mongoose.connect('mongodb://localhost:27017/smart-shelves', {
     useNewUrlParser: true,
@@ -70,6 +73,22 @@ app.post('/api/login', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+app.post('/api/sensor-data', (req, res) => {
+    const { weight, distance } = req.body;
+    sensorData.weight = weight;
+    sensorData.distance = distance;
+    if (weight !== undefined && distance !== undefined) {
+        console.log(`Received sensor data - Weight: ${weight} grams, Distance: ${distance} cm`);
+        res.status(200).send({ message: 'Sensor data received successfully' });
+    } else {
+        res.status(400).send({ error: 'Invalid sensor data' });
+    }
+});
+app.get('/api/sensor-data', (req, res) => {
+    res.status(200).json(sensorData);
+}); 
+
 
 // Start the server
 app.listen(PORT, () => {
