@@ -22,5 +22,13 @@
       "Image": "oreo.png",
       "Shelf": 3,
       "Weight": 150
+  },
+  {
+    "Product": "Vim",
+      "Quantity": 12,
+      "Total": 40,
+      "Image": "vim.png",
+      "Shelf": 4,
+      "Weight": 150
   }
 ]
