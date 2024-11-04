@@ -1,84 +1,44 @@
-import React from 'react';
+import React from "react";
+import products from "../GodownProducts.json";
 import '../styles/Products.css'; // Import CSS file for product card styling
+import Navbar from './Navbar';
+import Sidebar from './Sidebar';
 
 const Products = () => {
-    // Product list data
-    const products = [
-        {
-            Product: "Colgate Toothpaste",
-            Weight: 100,
-            Image: "colgate.png",
-            Quantity: 50
-        },
-        {
-            Product: "Tata Salt",
-            Weight: 1000,
-            Image: "tata_salt.png",
-            Quantity: 75
-        },
-        {
-            Product: "Basmati Rice",
-            Weight: 5000,
-            Image: "basmati_rice.png",
-            Quantity: 30
-        },
-        {
-            Product: "Vim Dishwasher",
-            Weight: 500,
-            Image: "vim.png",
-            Quantity: 60
-        },
-        {
-            Product: "Nescafe Jar",
-            Weight: 250,
-            Image: "nescafe.png",
-            Quantity: 40
-        },
-        {
-            Product: "Lifebuoy Soap",
-            Weight: 125,
-            Image: "lifebuoy.png",
-            Quantity: 90
-        },
-        {
-            Product: "Dettol Soap",
-            Weight: 125,
-            Image: "dettol.png",
-            Quantity: 85
-        },
-        {
-            Product: "Boroplus Cream",
-            Weight: 50,
-            Image: "boroplus.png",
-            Quantity: 55
-        },
-        {
-            Product: "Ponds Cream",
-            Weight: 100,
-            Image: "ponds.png",
-            Quantity: 65
-        }
-    ];
-
-    return (
-        <div className="products-container">
+  return (
+    <>
+      <Navbar />
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-2">
+            <Sidebar />
+          </div>
+          <div className="col-10 products-container" style={{ marginTop: '20px' }}>
             <h1>Available Products</h1>
-            <div className="products-list">
-                {products.map((product, index) => (
-                    <div className="product-card" key={index}>
-                        <img
-                            src={`/images/${product.Image}`}
-                            alt={product.Product}
-                            className="product-image"
-                        />
-                        <h2 className="product-name">{product.Product}</h2>
-                        <p className="product-weight">Weight: {product.Weight}g</p>
-                        <p className="product-quantity">Quantity: {product.Quantity}</p>
+            <div className="products-list row row-cols-1 row-cols-md-3 g-2">
+              {products.map((product, index) => (
+                <div className="col-md-4" key={index}>
+                  <div className="card h-100">
+                    <img
+                      src={`/images/${product.Image}`}
+                      alt={product.Product}
+                      className="card-img-top"
+                      style={{ width: "100px", height: "100px", margin: "auto" }}
+                    />
+                    <div className="card-body text-center">
+                      <h2 className="card-title">{product.Product}</h2>
+                      <p className="card-text">Weight: {product.Weight}g</p>
+                      <p className="card-text">Quantity: {product.Quantity}</p>
                     </div>
-                ))}
+                  </div>
+                </div>
+              ))}
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </>
+  );
 };
 
 export default Products;
