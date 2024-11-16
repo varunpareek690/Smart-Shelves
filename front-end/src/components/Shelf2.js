@@ -7,9 +7,9 @@ import Sidebar from './Sidebar';
 const Shelf2 = () => {
   // Hardcoded product data for Shelf 2 (Loreal Shampoo)
   const product = {
-    Product: "Loreal Shampoo",
+    Product: "Oreo",
     Total: 6, // Total possible bottles
-    Image: "loreal.png",
+    Image: "oreo.png",
     Shelf: 2,
     itemLength: 5, // Length of each shampoo bottle (5cm)
   };

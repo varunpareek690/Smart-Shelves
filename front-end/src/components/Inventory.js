@@ -1,43 +1,43 @@
-import React from "react";
-import products from "../products.json";
+import React, { useState, useEffect } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import Navbar from './Navbar';
-import Sidebar from './Sidebar';
+import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
 
 const Inventory = () => {
     const [sensorData, setSensorData] = useState({ weight: 0, distance: 0 });
     const [products, setProducts] = useState([
         {
-            Product: 'Basmati Rice',
-            Quantity: 0,  // Will be updated dynamically
-            Total: 30,
-            Image: 'basmati_rice.png',
+            Product: "Basmati Rice",
+            Quantity: 0, // Will be updated dynamically
+            Total: 15,
+            Image: "basmati_rice.png",
             shelf: 1,
-            Weight: 5000 // Placeholder for weight calculation
+            Weight: 1500 // Updated Max weight in grams
         },
         {
-            Product: 'Oreo',
-            Quantity: 0,  // Will be updated dynamically
+            Product: "Oreo",
+            Quantity: 0, // Will be updated dynamically
             Total: 6,
-            Image: 'oreo.png',
+            Image: "oreo.png",
             shelf: 2,
             itemLength: 5 // Length of each packet in cm
         }
     ]);
+    
 
     // Fetch sensor data from the server
     const fetchSensorData = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/sensor-data');
+            const response = await fetch("http://localhost:8000/api/sensor-data");
             if (response.ok) {
                 const data = await response.json();
                 setSensorData(data);
             } else {
-                console.error('Failed to fetch sensor data:', response.status);
+                console.error("Failed to fetch sensor data:", response.status);
             }
         } catch (error) {
-            console.error('Error fetching sensor data:', error);
+            console.error("Error fetching sensor data:", error);
         }
     };
 
@@ -47,34 +47,34 @@ const Inventory = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // Update the product quantity dynamically based on sensor data
-   // Update the product quantity dynamically based on sensor data
-const updateProductQuantities = () => {
-    return products.map(product => {
-        if (product.shelf === 1) {
-            // Shelf 1: Calculate progress based on weight for Basmati Rice
-            const filledWeight = sensorData.weight;
-            const weightPercentage = (filledWeight / product.Weight) * 100;
+    // Update product quantities dynamically for all shelves
+    const updateProductQuantities = () => {
+        return products.map(product => {
+            if (product.shelf === 1) {
+                // Calculate progress based on weight for Basmati Rice
+                const filledWeight = sensorData.weight;
+                const weightPercentage = (filledWeight / product.Weight) * 100;
+                const limitedWeightPercentage = Math.max(0, Math.min(weightPercentage, 100));
 
-            // Ensure the weight percentage is between 0 and 100
-            const limitedWeightPercentage = Math.max(0, Math.min(weightPercentage, 100));
+                return {
+                    ...product,
+                    Quantity: Math.round(limitedWeightPercentage * (product.Total / 100))
+                };
+            } else if (product.shelf === 2) {
+                // Calculate progress based on distance for Oreo
+                const totalShelfLength = 30; // 30cm total shelf length
+                const remainingDistance = sensorData.distance;
+                const filledSpace = totalShelfLength - remainingDistance;
+                const packetsOnShelf = Math.max(
+                    0,
+                    Math.min(Math.floor(filledSpace / product.itemLength), product.Total)
+                );
 
-            return { ...product, Quantity: Math.round(limitedWeightPercentage * (product.Total / 100)) };
-        } else if (product.shelf === 2) {
-            // Shelf 2: Calculate progress based on distance for Oreo
-            const totalShelfLength = 30; // 30cm total shelf length
-            const remainingDistance = sensorData.distance;
-            const filledSpace = totalShelfLength - remainingDistance;
-
-            // Calculate how many packets are on the shelf and ensure it's within 0 and the total amount of packets
-            const packetsOnShelf = Math.max(0, Math.min(Math.floor(filledSpace / product.itemLength), product.Total));
-
-            return { ...product, Quantity: packetsOnShelf };
-        }
-        return product;
-    });
-};
-
+                return { ...product, Quantity: packetsOnShelf };
+            }
+            return product;
+        });
+    };
 
     const updatedProducts = updateProductQuantities();
 
@@ -86,10 +86,10 @@ const updateProductQuantities = () => {
                     <div className="col-2">
                         <Sidebar />
                     </div>
-                    <div className="col-10" style={{ marginTop: '80px' }}>
+                    <div className="col-10" style={{ marginTop: "80px" }}>
                         <h1 className="text-center mb-4">Product Inventory</h1>
                         <div className="row justify-content-center">
-                            {products.map((product, index) => {
+                            {updatedProducts.map((product, index) => {
                                 const percentage = Math.round((product.Quantity / product.Total) * 100);
                                 return (
                                     <div className="col-sm-6 col-md-4 col-lg-3 mb-4" key={index}>
@@ -102,21 +102,20 @@ const updateProductQuantities = () => {
                                             />
                                             <div className="card-body d-flex flex-column align-items-center">
                                                 <h5 className="card-title mb-3">{product.Product}</h5>
-                                                <div className="progress-container" style={{ width: '100px' }}>
+                                                <div className="progress-container" style={{ width: "100px" }}>
                                                     <CircularProgressbar
                                                         value={percentage}
                                                         text={`${percentage}%`}
                                                         styles={buildStyles({
                                                             textColor: "black",
                                                             pathColor: "green",
-                                                            trailColor: "lightgrey",
+                                                            trailColor: "lightgrey"
                                                         })}
                                                     />
                                                 </div>
                                             </div>
-
                                             <div className="card-footer">
-                                                <p className="card-text">{`Weight: ${product.Weight}g | Quantity: ${product.Quantity} / ${product.Total}`}</p>
+                                                <p className="card-text">{`Quantity: ${product.Quantity} / ${product.Total}`}</p>
                                             </div>
                                         </div>
                                     </div>

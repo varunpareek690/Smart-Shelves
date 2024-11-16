@@ -7,9 +7,9 @@ import Sidebar from './Sidebar'; // Import the Sidebar
 const Shelf1 = () => {
   // Hardcoded product data for Shelf 1 (Parle G)
   const product = {
-    Product: "Parle G",
+    Product: "Basmati Rice",
     Total: 15, // Total packets that can fit on the shelf
-    Image: "parle.png",
+    Image: "basmati_rice.png",
     Shelf: 1,
     packetWeight: 100, // Weight of one packet in grams
   };
