@@ -6,7 +6,7 @@ const OrderPage = styled.div`
   width: 100%;
   padding: 40px;
   text-align: center;
-  color: #fff;
+  color: #000;
   background: linear-gradient(135deg, #ff7e5f, #feb47b);
   @media (max-width: 768px) {
     padding: 20px;
@@ -147,7 +147,7 @@ const OrderComponent = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/product-available")
+      .get("http://192.168.88.137:8000/api/product-available")
       .then((response) => {
         setProducts(response.data);
       })
@@ -158,7 +158,7 @@ const OrderComponent = () => {
 
   const fetchOrderHistory = () => {
     axios
-      .get("http://localhost:8000/api/order-history")
+      .get("http://192.168.88.137:8000/api/order-history")
       .then((response) => setOrderHistory(response.data))
       .catch((error) => console.error("Failed to fetch order history:", error));
   };
@@ -182,7 +182,7 @@ const OrderComponent = () => {
     }
 
     axios
-      .post("http://localhost:8000/api/place-order", {
+      .post("http://192.168.88.137:8000/api/place-order", {
         productName: selectedProduct,
         quantity,
         retailerEmail,

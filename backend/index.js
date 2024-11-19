@@ -19,16 +19,21 @@ app.use(express.json());
 // Sensor data object
 let sensorData = {
     weight: null,
-    distanceone: null,
-    distancetwo: null,
-    ir1: null, // Added IR sensor 1
-    ir2: null, // Added IR sensor 2
-    ir3: null, // Added IR sensor 3
+    distance1: null,
+    distance2: null,
+    ir1: null,
+    ir2: null,
+    ir3: null,
+   
 };
 
+let productData = {
+    productName: null,
+    discount:null
+}
 // MongoDB connection
 mongoose
-    .connect('mongodb://localhost:27017/smart-shelves', {
+    .connect('mongodb+srv://varunpareek690:OPtonpere123@cluster0.ewfz7wk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
@@ -107,17 +112,17 @@ app.post('/api/login', async (req, res) => {
 
 // Sensor Data Handling
 app.post('/api/sensor-data', (req, res) => {
-    const { weight, distanceone, distancetwo, ir1, ir2, ir3 } = req.body;
-
+    const { weight, distance1,distance2,ir1,ir2,ir3 } = req.body;
     sensorData.weight = weight;
-    sensorData.distanceone = distanceone;
-    sensorData.distancetwo = distancetwo;
-    sensorData.ir1 = ir1; // Update IR sensor 1
-    sensorData.ir2 = ir2; // Update IR sensor 2
-    sensorData.ir3 = ir3; // Update IR sensor 3
+    sensorData.distance1 = distance1;
+    sensorData.distance2 = distance2;
+    sensorData.ir1 = ir1;
+    sensorData.ir2 = ir2;
+    sensorData.ir3 = ir3;
 
-    if (weight !== undefined && distanceone !== undefined && distancetwo !== undefined && ir1 !== undefined && ir2 !== undefined && ir3 !== undefined) {
-        console.log(`Received sensor data - Weight: ${weight} grams, Distance 1: ${distanceone} cm, Distance 2: ${distancetwo}, IR1: ${ir1}, IR2: ${ir2}, IR3: ${ir3}`);
+    if (weight !== undefined && distance1 !== undefined && distance2 !== undefined && ir2!=undefined && ir3!=undefined) {
+        console.log(`Received sensor data - Weight: ${weight} grams, Distance 1: ${distance1} cm,Distance 1: ${distance2} cm`);
+        console.log(`IR 1 ${ir1},IR 2 ${ir2},IR 3 ${ir3}`);
         res.status(200).send({ message: 'Sensor data received successfully' });
     } else {
         res.status(400).send({ error: 'Invalid sensor data' });
@@ -130,8 +135,23 @@ app.get('/api/sensor-data', (req, res) => {
 
 app.get('/api/product-available', (req, res) => {
     res.status(200).json(GodownProducts);
-});
+})
 
+app.put('/api/product',async (req,res) => {
+    const {productName, discount} = req.body;
+    if(!productName || !discount) {
+        return res.status(400).json({ message: 'Missing required fields' });
+    }
+    productData.productName = productName;
+    productData.discount = discount;
+    res.status(200).json({ message: 'Product name and discount updated' });
+
+})
+
+app.get('/api/product',async (req,res) => {
+    res.status(200).json(productData);
+
+})
 // Order Placement
 app.post('/api/place-order', async (req, res) => {
     const { productName, quantity, retailerEmail } = req.body;
@@ -148,7 +168,7 @@ app.post('/api/place-order', async (req, res) => {
             service: 'gmail',
             auth: {
                 user: 'varunpareek690@gmail.com', // Replace with your email
-                pass: 'your_password',      // Replace with your email password
+                pass: 'oyel vxyj jvym pbaj',      // Replace with your email password
             },
         });
 
