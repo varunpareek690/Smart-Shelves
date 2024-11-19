@@ -8,12 +8,19 @@ const OrderPage = styled.div`
   text-align: center;
   color: #fff;
   background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
 const Title = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 30px;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
 `;
 
 const FormGroup = styled.div`
@@ -46,6 +53,11 @@ const Select = styled.select`
     background: rgba(255, 255, 255, 0.4);
     transform: scale(1.02);
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: none;
+  }
 `;
 
 const InputField = styled.input`
@@ -63,6 +75,11 @@ const InputField = styled.input`
     outline: none;
     background: rgba(255, 255, 255, 0.5);
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: none;
   }
 `;
 
@@ -82,12 +99,22 @@ const SubmitButton = styled.button`
     background-color: #ff79b0;
     transform: translateY(-2px);
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: none;
+  }
 `;
 
-const OrderHistoryTable = styled.table`
+const OrderHistoryTable = styled.div`
   width: 90%;
   max-width: 600px;
   margin: 20px auto;
+  overflow-x: auto; /* Makes the table horizontally scrollable on small screens */
+`;
+
+const Table = styled.table`
+  width: 100%;
   border-collapse: collapse;
   background: rgba(255, 255, 255, 0.1);
   text-align: left;
@@ -120,7 +147,7 @@ const OrderComponent = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.88.137:8000/api/product-available")
+      .get("http://localhost:8000/api/product-available")
       .then((response) => {
         setProducts(response.data);
       })
@@ -131,7 +158,7 @@ const OrderComponent = () => {
 
   const fetchOrderHistory = () => {
     axios
-      .get("http://192.168.88.137:8000/api/order-history")
+      .get("http://localhost:8000/api/order-history")
       .then((response) => setOrderHistory(response.data))
       .catch((error) => console.error("Failed to fetch order history:", error));
   };
@@ -155,7 +182,7 @@ const OrderComponent = () => {
     }
 
     axios
-      .post("http://192.168.88.137:8000/api/place-order", {
+      .post("http://localhost:8000/api/place-order", {
         productName: selectedProduct,
         quantity,
         retailerEmail,
@@ -207,24 +234,26 @@ const OrderComponent = () => {
 
       <Title>Order History</Title>
       <OrderHistoryTable>
-        <thead>
-          <tr>
-            <TableHeader>Product Name</TableHeader>
-            <TableHeader>Quantity</TableHeader>
-            <TableHeader>Retailer Email</TableHeader>
-            <TableHeader>Date</TableHeader>
-          </tr>
-        </thead>
-        <tbody>
-          {orderHistory.map((order, index) => (
-            <TableRow key={index}>
-              <TableCell>{order.productName}</TableCell>
-              <TableCell>{order.quantity}</TableCell>
-              <TableCell>{order.retailerEmail}</TableCell>
-              <TableCell>{new Date(order.date).toLocaleString()}</TableCell>
-            </TableRow>
-          ))}
-        </tbody>
+        <Table>
+          <thead>
+            <tr>
+              <TableHeader>Product Name</TableHeader>
+              <TableHeader>Quantity</TableHeader>
+              <TableHeader>Retailer Email</TableHeader>
+              <TableHeader>Date</TableHeader>
+            </tr>
+          </thead>
+          <tbody>
+            {orderHistory.map((order, index) => (
+              <TableRow key={index}>
+                <TableCell>{order.productName}</TableCell>
+                <TableCell>{order.quantity}</TableCell>
+                <TableCell>{order.retailerEmail}</TableCell>
+                <TableCell>{new Date(order.date).toLocaleString()}</TableCell>
+              </TableRow>
+            ))}
+          </tbody>
+        </Table>
       </OrderHistoryTable>
     </OrderPage>
   );
