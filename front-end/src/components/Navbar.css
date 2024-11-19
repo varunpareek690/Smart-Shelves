@@ -1,0 +1,58 @@
+/* Navbar.css */
+
+/* Dark background for the collapsible menu */
+.navbar-collapse {
+    background-color: #333; /* Dark background */
+    text-align: center; /* Center align the items */
+}
+
+/* Ensure that links are still styled correctly */
+.navbar-nav .nav-link {
+    color: white !important; /* White text for links */
+    font-weight: 500; /* Optional: Make text slightly bold */
+}
+
+/* Style the active link */
+.navbar-nav .nav-link.active {
+    color: #f0a500 !important; /* Active link color (optional) */
+}
+
+/* Move the hamburger icon to the right */
+.navbar-toggler {
+    margin-left: auto; /* Push the hamburger icon to the right */
+    margin-right: 0; /* Ensure there's no margin on the right */
+    background-color: #f0f0f0; /* Light background for the hamburger */
+    border: none; /* Optional: Remove the border if any */
+}
+
+/* Optional: Add some spacing for the collapsible menu items */
+.navbar-nav li {
+    padding: 10px 0; /* Vertical padding for better spacing */
+}
+
+/* When the navbar is collapsed, the items should be centered */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        padding: 10px;
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Vertically center the items */
+    }
+
+    .navbar-nav .nav-item {
+        width: 100%;
+    }
+
+    .navbar-toggler-icon {
+        background-color: #333; /* Change toggler icon color to dark (optional) */
+    }
+
+    /* Move the hamburger icon to the right */
+    .navbar-toggler {
+        position: absolute; /* Position it absolutely */
+        right: 15px; /* Add some padding from the right edge */
+    }
+}

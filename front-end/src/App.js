@@ -13,6 +13,9 @@ import OrderComponent from './components/OrderComponent';
 import Navbar from './components/Navbar';  // Import Navbar component
 import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 const App = () => {
     return (

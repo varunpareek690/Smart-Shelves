@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const User = require('./models/User');
 const Order = require('./models/Order');
-const GodownProducts = require('../front-end/src/GodownProducts.json')
+const GodownProducts = require('../front-end/src/GodownProducts.json');
 const app = express();
 const { PythonShell } = require("python-shell");
 
@@ -19,12 +19,16 @@ app.use(express.json());
 // Sensor data object
 let sensorData = {
     weight: null,
-    distance: null,
+    distanceone: null,
+    distancetwo: null,
+    ir1: null, // Added IR sensor 1
+    ir2: null, // Added IR sensor 2
+    ir3: null, // Added IR sensor 3
 };
 
 // MongoDB connection
 mongoose
-    .connect('mongodb+srv://varunpareek690:OPtonpere123@cluster0.ewfz7wk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+    .connect('mongodb://localhost:27017/smart-shelves', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
@@ -33,14 +37,19 @@ mongoose
 
 // Endpoint to predict stock status
 app.post("/api/predict-stock", (req, res) => {
-    const { weight, distance, daily_usage_rate } = req.body;
+    const { weight, distanceone, distancetwo, daily_usage_rate } = req.body;
+
+    // Check if the required data is available
+    if (weight === undefined || distanceone === undefined || distancetwo === undefined) {
+        return res.status(400).json({ error: 'Missing required sensor data (weight, distanceone, distancetwo)' });
+    }
 
     // Define Python script and options
     let options = {
         mode: "json",
         pythonOptions: ["-u"],
         scriptPath: "./", // Path to the Python script
-        args: [weight, distance, daily_usage_rate],
+        args: [weight, distanceone, distancetwo, daily_usage_rate],
     };
 
     PythonShell.run("predict_stock.py", options, function (err, result) {
@@ -98,12 +107,17 @@ app.post('/api/login', async (req, res) => {
 
 // Sensor Data Handling
 app.post('/api/sensor-data', (req, res) => {
-    const { weight, distance } = req.body;
-    sensorData.weight = weight;
-    sensorData.distance = distance;
+    const { weight, distanceone, distancetwo, ir1, ir2, ir3 } = req.body;
 
-    if (weight !== undefined && distance !== undefined) {
-        console.log(`Received sensor data - Weight: ${weight} grams, Distance: ${distance} cm`);
+    sensorData.weight = weight;
+    sensorData.distanceone = distanceone;
+    sensorData.distancetwo = distancetwo;
+    sensorData.ir1 = ir1; // Update IR sensor 1
+    sensorData.ir2 = ir2; // Update IR sensor 2
+    sensorData.ir3 = ir3; // Update IR sensor 3
+
+    if (weight !== undefined && distanceone !== undefined && distancetwo !== undefined && ir1 !== undefined && ir2 !== undefined && ir3 !== undefined) {
+        console.log(`Received sensor data - Weight: ${weight} grams, Distance 1: ${distanceone} cm, Distance 2: ${distancetwo}, IR1: ${ir1}, IR2: ${ir2}, IR3: ${ir3}`);
         res.status(200).send({ message: 'Sensor data received successfully' });
     } else {
         res.status(400).send({ error: 'Invalid sensor data' });
@@ -114,9 +128,10 @@ app.get('/api/sensor-data', (req, res) => {
     res.status(200).json(sensorData);
 });
 
-app.get('/api/product-available',(req,res)=>{
+app.get('/api/product-available', (req, res) => {
     res.status(200).json(GodownProducts);
-})
+});
+
 // Order Placement
 app.post('/api/place-order', async (req, res) => {
     const { productName, quantity, retailerEmail } = req.body;
@@ -133,12 +148,12 @@ app.post('/api/place-order', async (req, res) => {
             service: 'gmail',
             auth: {
                 user: 'varunpareek690@gmail.com', // Replace with your email
-                pass: 'oyel vxyj jvym pbaj',      // Replace with your email password
+                pass: 'your_password',      // Replace with your email password
             },
         });
 
         const mailOptions = {
-            from: 'varunpareek690 @gmail.com',
+            from: 'varunpareek690@gmail.com',
             to: retailerEmail,
             subject: 'Order Confirmation',
             text: `Thank you for your order!\n\nProduct ID: ${productName}\nQuantity: ${quantity}\n\nYour order is being processed.`,
@@ -151,14 +166,18 @@ app.post('/api/place-order', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
-app.get('/api/order-history',async (req, res) => {
+
+// Get Order History
+app.get('/api/order-history', async (req, res) => {
     try {
         const orders = await Order.find();
         res.status(200).json(orders);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Failed to fetch order history." });
-    }});
+    }
+});
+
 // Start the Server
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

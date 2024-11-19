@@ -12,7 +12,7 @@ const Register = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://192.168.88.137:8000/register', {
+            const response = await fetch('http://localhost:8000/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
