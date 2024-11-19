@@ -22,7 +22,7 @@ const Shelf2 = () => {
   // Fetch sensor data from the API for Shelf 2
   const fetchSensorData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/sensor-data'); // Adjust API URL as necessary
+      const response = await fetch('http://192.168.88.137:8000/api/sensor-data'); // Adjust API URL as necessary
       if (response.ok) {
         const data = await response.json();
         setSensorData(data);

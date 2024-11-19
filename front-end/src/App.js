@@ -6,9 +6,11 @@ import Shelf3 from './components/Shelf3';
 import Inventory from './components/Inventory';
 import Products from './components/Products';
 import Login from './components/Login';
-import Register from './components/Register';  // Import the Register component
+import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import ProtectedRoute from './ProtectedRoute';
+import OrderComponent from './components/OrderComponent';
+import Navbar from './components/Navbar';  // Import Navbar component
 import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -16,6 +18,7 @@ const App = () => {
     return (
         <Router>
             <div className="app-container">
+               
                 <div className="main-content">
                     <Routes>
                         {/* Public Routes */}
@@ -29,7 +32,7 @@ const App = () => {
                         <Route path="/shelf3" element={<ProtectedRoute element={<Shelf3 />} />} />
                         <Route path="/inventory" element={<ProtectedRoute element={<Inventory />} />} />
                         <Route path="/products" element={<ProtectedRoute element={<Products />} />} />
-                        <Route path="/inventory" element={<ProtectedRoute element={<Inventory />} />} />
+                        <Route path = 'orders' element={<ProtectedRoute element={<OrderComponent/>}/>}/>
 
                         {/* Catch-all route */}
                         <Route path="*" element={<Navigate to="/login" />} />

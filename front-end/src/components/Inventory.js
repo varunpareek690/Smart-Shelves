@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
 const Inventory = () => {
-    const [sensorData, setSensorData] = useState({ weight: 0, distance: 0 });
+    const [sensorData, setSensorData] = useState({ weight: 1500, distance: 0 });
     const [products, setProducts] = useState([
         {
             Product: "Basmati Rice",
@@ -29,7 +29,7 @@ const Inventory = () => {
     // Fetch sensor data from the server
     const fetchSensorData = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/sensor-data");
+            const response = await fetch("http://192.168.88.137:8000/api/sensor-data");
             if (response.ok) {
                 const data = await response.json();
                 setSensorData(data);
@@ -41,11 +41,23 @@ const Inventory = () => {
         }
     };
 
+   
+
     useEffect(() => {
         fetchSensorData();
         const interval = setInterval(fetchSensorData, 1000);
         return () => clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        if (sensorData.weight < 100) {
+            alert('Stock empty in Shelf 1');
+        }
+
+        if (sensorData.distance > 15) {
+            alert('Stock empty in Shelf 2');
+        }
+    }, [sensorData.weight, sensorData.distance]);
 
     // Update product quantities dynamically for all shelves
     const updateProductQuantities = () => {
