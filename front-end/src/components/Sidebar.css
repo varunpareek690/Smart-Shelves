@@ -1,0 +1,30 @@
+/* General button styling */
+.mobile-buttons .btn {
+    text-align: center;
+    flex-grow: 1;
+    margin: 5px;
+}
+
+/* Mobile-specific styling */
+@media (max-width: 768px) {
+    .buttons-container {
+        height: auto;
+        width: 100%;
+        position: fixed;
+        top: 60px;
+        z-index: 1000;
+        flex-direction: row !important;
+        justify-content: space-around;
+    }
+
+    .mobile-buttons {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+}

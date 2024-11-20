@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Navbar from "./Navbar"; // Assuming you have a Navbar component
 
 const OrderPage = styled.div`
   width: 100%;
@@ -58,6 +59,11 @@ const Select = styled.select`
     width: 100%;
     max-width: none;
   }
+
+  option {
+    background-color: black;
+    color: #fff;
+  }
 `;
 
 const InputField = styled.input`
@@ -110,7 +116,7 @@ const OrderHistoryTable = styled.div`
   width: 90%;
   max-width: 600px;
   margin: 20px auto;
-  overflow-x: auto; /* Makes the table horizontally scrollable on small screens */
+  overflow-x: auto;
 `;
 
 const Table = styled.table`
@@ -197,65 +203,68 @@ const OrderComponent = () => {
   };
 
   return (
-    <OrderPage>
-      <Title>Place Your Order</Title>
-      <FormGroup>
-        <Label htmlFor="product">Select Product:</Label>
-        <Select id="product" value={selectedProduct} onChange={handleProductChange}>
-          <option value="">-- Select a Product --</option>
-          {products.map((product, index) => (
-            <option key={index} value={product.Product}>
-              {product.Product}
-            </option>
-          ))}
-        </Select>
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="quantity">Quantity:</Label>
-        <InputField
-          type="number"
-          id="quantity"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
-          min="1"
-          max={productDetails.Quantity}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="retailerEmail">Retailer Email:</Label>
-        <InputField
-          type="email"
-          id="retailerEmail"
-          value={retailerEmail}
-          onChange={(e) => setRetailerEmail(e.target.value)}
-        />
-      </FormGroup>
-      <SubmitButton onClick={handlePlaceOrder}>Place Order</SubmitButton>
-
-      <Title>Order History</Title>
-      <OrderHistoryTable>
-        <Table>
-          <thead>
-            <tr>
-              <TableHeader>Product Name</TableHeader>
-              <TableHeader>Quantity</TableHeader>
-              <TableHeader>Retailer Email</TableHeader>
-              <TableHeader>Date</TableHeader>
-            </tr>
-          </thead>
-          <tbody>
-            {orderHistory.map((order, index) => (
-              <TableRow key={index}>
-                <TableCell>{order.productName}</TableCell>
-                <TableCell>{order.quantity}</TableCell>
-                <TableCell>{order.retailerEmail}</TableCell>
-                <TableCell>{new Date(order.date).toLocaleString()}</TableCell>
-              </TableRow>
+    <>
+      <Navbar />
+      <OrderPage>
+        <Title>Place Your Order</Title>
+        <FormGroup>
+          <Label htmlFor="product">Select Product:</Label>
+          <Select id="product" value={selectedProduct} onChange={handleProductChange}>
+            <option value="">-- Select a Product --</option>
+            {products.map((product, index) => (
+              <option key={index} value={product.Product}>
+                {product.Product}
+              </option>
             ))}
-          </tbody>
-        </Table>
-      </OrderHistoryTable>
-    </OrderPage>
+          </Select>
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="quantity">Quantity:</Label>
+          <InputField
+            type="number"
+            id="quantity"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            min="1"
+            max={productDetails.Quantity}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="retailerEmail">Retailer Email:</Label>
+          <InputField
+            type="email"
+            id="retailerEmail"
+            value={retailerEmail}
+            onChange={(e) => setRetailerEmail(e.target.value)}
+          />
+        </FormGroup>
+        <SubmitButton onClick={handlePlaceOrder}>Place Order</SubmitButton>
+
+        <Title>Order History</Title>
+        <OrderHistoryTable>
+          <Table>
+            <thead>
+              <tr>
+                <TableHeader>Product Name</TableHeader>
+                <TableHeader>Quantity</TableHeader>
+                <TableHeader>Retailer Email</TableHeader>
+                <TableHeader>Date</TableHeader>
+              </tr>
+            </thead>
+            <tbody>
+              {orderHistory.map((order, index) => (
+                <TableRow key={index}>
+                  <TableCell>{order.productName}</TableCell>
+                  <TableCell>{order.quantity}</TableCell>
+                  <TableCell>{order.retailerEmail}</TableCell>
+                  <TableCell>{new Date(order.date).toLocaleString()}</TableCell>
+                </TableRow>
+              ))}
+            </tbody>
+          </Table>
+        </OrderHistoryTable>
+      </OrderPage>
+    </>
   );
 };
 

@@ -34,12 +34,14 @@
 @media (max-width: 991px) {
     .navbar-collapse {
         padding: 10px;
+        margin-top: 10px;
     }
 
     .navbar-nav {
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Vertically center the items */
+        justify-content: center; 
+        /* Vertically center the items */
     }
 
     .navbar-nav .nav-item {
@@ -52,7 +54,7 @@
 
     /* Move the hamburger icon to the right */
     .navbar-toggler {
-        position: absolute; /* Position it absolutely */
+        /* position: absolute; Position it absolutely */
         right: 15px; /* Add some padding from the right edge */
     }
 }

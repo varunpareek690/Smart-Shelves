@@ -105,7 +105,7 @@ const Inventory = () => {
         // const sumIRValues = irSensors.reduce((sum, value) => sum + value, 0);
         // const irPercentage = (sumIRValues / 3) * 100;
   
-        return { ...product, Quantity: (sensorData.ir1+sensorData.ir2+sensorData.ir3) }; // Round for cleaner display
+        return { ...product, Quantity: (3-(sensorData.ir1+sensorData.ir2+sensorData.ir3)) }; // Round for cleaner display
       }
       return product;
     });
@@ -119,7 +119,7 @@ const Inventory = () => {
       <Navbar />
       <div className="container-fluid">
         <div className="row">
-          <div className="d-none d-md-block col-md-2">
+          <div className="col-md-2">
             <Sidebar />
           </div>
           <div
@@ -156,7 +156,7 @@ const Inventory = () => {
                         </h5>
                         <div
                           className="progress-container"
-                          style={{ width: "100px" }}
+                          style={{ width: "70px" }}
                         >
                           <CircularProgressbar
                             value={percentage}

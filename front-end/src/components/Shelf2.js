@@ -66,11 +66,11 @@ const Shelf2 = () => {
       <Navbar />
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-2">
+          <div className="col-12 col-md-2">
             <Sidebar />
           </div>
-          <div className="col-md-10" style={{ marginTop: "80px" }}>
-            <h1 className="text-center mb-4">Shelf 2</h1>
+          <div className="col-12 col-md-10" style={{ marginTop: "80px" }}>
+            <h1 className="text-center mb-4">Shelf 2: Biscuits</h1>
             <div className="row justify-content-center">
               {products.map((product, index) => {
                 const filledBottles = calculateFilledBottles(
@@ -83,7 +83,7 @@ const Shelf2 = () => {
                 );
 
                 return (
-                  <div className="col-md-4 mb-4" key={index}>
+                  <div className="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-4" key={index}>
                     <div className="card h-100 text-center">
                       <img
                         src={`/images/${product.Image}`}
