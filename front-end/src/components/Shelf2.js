@@ -12,7 +12,7 @@ const Shelf2 = () => {
       Image: "oreo.png",
       Shelf: 2,
       itemLength: 5, // Length of each packet in cm
-      distanceState: "distanceOne", // Key for the sensor data
+      distanceState: "distance1", // Key for the sensor data
     },
     {
       Product: "Parle-G",
@@ -20,25 +20,25 @@ const Shelf2 = () => {
       Image: "parle.png",
       Shelf: 2,
       itemLength: 5, // Length of each packet in cm
-      distanceState: "distanceTwo", // Key for the sensor data
+      distanceState: "distance2", // Key for the sensor data
     },
   ];
 
-  const totalShelfLength = 30; // Total length of the shelf in cm
+  const totalShelfLength = 22; // Total length of the shelf in cm
 
   const [sensorData, setSensorData] = useState({
-    distanceOne: 0,
-    distanceTwo: 0,
+    distance1: 0,
+    distance2: 0,
   });
 
   const fetchSensorData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/sensor-data");
+      const response = await fetch("http://192.168.88.137:8000/api/sensor-data");
       if (response.ok) {
         const data = await response.json();
         setSensorData({
-          distanceOne: data.distanceone || 0,
-          distanceTwo: data.distancetwo || 0,
+          distance1: data.distance1 || 0,
+          distance2: data.distance2 || 0,
         });
       } else {
         console.error("Failed to fetch sensor data:", response.status);
