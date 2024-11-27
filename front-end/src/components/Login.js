@@ -12,7 +12,7 @@ const Login = () => {
         setError(''); // Reset error message
 
         try {
-            const response = await fetch('http://192.168.88.137:8000/api/login', {
+            const response = await fetch('http://192.168.189.137:8000/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

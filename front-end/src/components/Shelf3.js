@@ -66,7 +66,7 @@ const Inventory = () => {
   // Fetch sensor data from the API
   const fetchSensorData = async () => {
     try {
-      const response = await fetch("http://192.168.88.137:8000/api/sensor-data");
+      const response = await fetch("http://192.168.189.137:8000/api/sensor-data");
       if (response.ok) {
         const data = await response.json();
         setSensorData(data); // Update state with the latest sensor data
@@ -122,25 +122,125 @@ const Inventory = () => {
           >
             <h1 className="text-center mb-4">Shelf 3: Cold Drinks</h1>
             <div className="row justify-content-center">
-              {updatedProducts.map((product) => (
-                <>
-                  <IRProductCard
-                    product={product}
-                    irIndex={1}
-                    quantity={product.QuantityIR1}
-                  />
-                  <IRProductCard
-                    product={product}
-                    irIndex={2}
-                    quantity={product.QuantityIR2}
-                  />
-                  <IRProductCard
-                    product={product}
-                    irIndex={3}
-                    quantity={product.QuantityIR3}
-                  />
-                </>
-              ))}
+              {updatedProducts.map((product, index) => {
+                return (
+                  <>
+                    {/* Card for IR1 */}
+                    <div
+                      className="col-6 col-sm-4 col-md-3 mb-4"
+                      key={`${index}-ir1`}
+                    >
+                      <div className="card h-100 text-center">
+                        <img
+                          src={product.QuantityIR1===1?`/images/${product.Image1}`:`/images/${product.Image0}`}
+                          className="card-img-top"
+                          alt={product.Product}
+                          style={{
+                            width: "100px",
+                            height: "100px",
+                            margin: "auto",
+                          }}
+                        />
+                        <div className="card-body d-flex flex-column align-items-center">
+                          <h5 className="card-title mb-3">
+                            {product.Product} - 1
+                          </h5>
+                          <div className="progress-container" style={{ width: "100px" }}>
+                            <CircularProgressbar
+                              value={product.QuantityIR1===1?0:100}
+                              text={`${product.QuantityIR1==0?1:0}`}
+                              styles={buildStyles({
+                                textColor: "black",
+                                pathColor: "green",
+                                trailColor: "lightgrey",
+                              })}
+                            />
+                          </div>
+                        </div>
+                        {/* <div className="card-footer">
+                          <p className="card-text">{`Quantity: ${product.QuantityIR1} / ${product.Total}`}</p>
+                        </div> */}
+                      </div>
+                    </div>
+
+                    {/* Card for IR2 */}
+                    <div
+                      className="col-6 col-sm-4 col-md-3 mb-4"
+                      key={`${index}-ir2`}
+                    >
+                      <div className="card h-100 text-center">
+                        <img
+                          src={product.QuantityIR2===1?`/images/${product.Image1}`:`/images/${product.Image0}`}
+                          className="card-img-top"
+                          alt={product.Product}
+                          style={{
+                            width: "100px",
+                            height: "100px",
+                            margin: "auto",
+                          }}
+                        />
+                        <div className="card-body d-flex flex-column align-items-center">
+                          <h5 className="card-title mb-3">
+                            {product.Product} - 2
+                          </h5>
+                          <div className="progress-container" style={{ width: "100px" }}>
+                            <CircularProgressbar
+                              value={product.QuantityIR2===1?0:100}
+                              text={`${product.QuantityIR2==0?1:0}`}
+                              styles={buildStyles({
+                                textColor: "black",
+                                pathColor: "green",
+                                trailColor: "lightgrey",
+                              })}
+                            />
+                          </div>
+                        </div>
+                        {/* <div className="card-footer">
+                          <p className="card-text">{`Quantity: ${product.QuantityIR2} / ${product.Total}`}</p>
+                        </div> */}
+                      </div>
+                    </div>
+
+                    {/* Card for IR3 */}
+                    <div
+                      className="col-6 col-sm-4 col-md-3 mb-4"
+                      key={`${index}-ir3`}
+                    >
+                      <div className="card h-100 text-center">
+                        <img
+                          src={product.QuantityIR3===1?`/images/${product.Image1}`:`/images/${product.Image0}`}
+                          className="card-img-top"
+                          alt={product.Product}
+                          style={{
+                            width: "100px",
+                            height: "100px",
+                            margin: "auto",
+                          }}
+                        />
+                        <div className="card-body d-flex flex-column align-items-center">
+                          <h5 className="card-title mb-3">
+                            {product.Product} - 3
+                          </h5>
+                          <div className="progress-container" style={{ width: "100px" }}>
+                            <CircularProgressbar
+                              value={product.QuantityIR3===1?0:100}
+                              text={`${product.QuantityIR3==0?1:0}`}
+                              styles={buildStyles({
+                                textColor: "black",
+                                pathColor: "green",
+                                trailColor: "lightgrey",
+                              })}
+                            />
+                          </div>
+                        </div>
+                        {/* <div className="card-footer">
+                          <p className="card-text">{`Quantity: ${product.QuantityIR3} / ${product.Total}`}</p>
+                        </div> */}
+                      </div>
+                    </div>
+                  </>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -50,7 +50,7 @@ const Inventory = () => {
 
   const fetchSensorData = async () => {
     try {
-      const response = await fetch("http://192.168.88.137:8000/api/sensor-data");
+      const response = await fetch("http://192.168.189.137:8000/api/sensor-data");
       if (response.ok) {
         const data = await response.json();
         setSensorData(data); // Update the state with the new sensor data

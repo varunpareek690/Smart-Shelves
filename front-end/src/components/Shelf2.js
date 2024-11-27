@@ -11,7 +11,7 @@ const Shelf2 = () => {
       Total: 6, // Total quantity of Oreo
       Image: "oreo.png",
       Shelf: 2,
-      itemLength: 5, // Length of each packet in cm
+      itemLength: 3, // Length of each packet in cm
       distanceState: "distance1", // Key for the sensor data
     },
     {
@@ -19,7 +19,7 @@ const Shelf2 = () => {
       Total: 10, // Total quantity of Parle-G
       Image: "parle.png",
       Shelf: 2,
-      itemLength: 5, // Length of each packet in cm
+      itemLength: 2.5, // Length of each packet in cm
       distanceState: "distance2", // Key for the sensor data
     },
   ];
@@ -33,7 +33,7 @@ const Shelf2 = () => {
 
   const fetchSensorData = async () => {
     try {
-      const response = await fetch("http://192.168.88.137:8000/api/sensor-data");
+      const response = await fetch("http://192.168.189.137:8000/api/sensor-data");
       if (response.ok) {
         const data = await response.json();
         setSensorData({
