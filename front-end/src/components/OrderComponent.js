@@ -153,7 +153,7 @@ const OrderComponent = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.88.137:8000/api/product-available")
+      .get("http://192.168.189.137:8000/api/product-available")
       .then((response) => {
         setProducts(response.data);
       })
@@ -164,7 +164,7 @@ const OrderComponent = () => {
 
   const fetchOrderHistory = () => {
     axios
-      .get("http://192.168.88.137:8000/api/order-history")
+      .get("http://192.168.189.137:8000/api/order-history")
       .then((response) => setOrderHistory(response.data))
       .catch((error) => console.error("Failed to fetch order history:", error));
   };
@@ -188,7 +188,7 @@ const OrderComponent = () => {
     }
 
     axios
-      .post("http://192.168.88.137:8000/api/place-order", {
+      .post("http://192.168.189.137:8000/api/place-order", {
         productName: selectedProduct,
         quantity,
         retailerEmail,

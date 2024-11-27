@@ -6,7 +6,7 @@ const Navbar = () => {
     useEffect(() => {
         // Polling the backend for stock status (if needed in the future)
         const checkStock = setInterval(() => {
-            fetch('http://192.168.88.137:8000/api/sensor-data') // Replace with your actual API endpoint
+            fetch('http://192.168.189.137:8000/api/sensor-data') // Replace with your actual API endpoint
                 .then((response) => response.json())
                 .catch((error) => console.error('Error fetching stock data:', error));
         }, 5000); // Check every 5 seconds
