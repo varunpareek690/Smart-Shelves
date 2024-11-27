@@ -7,8 +7,8 @@ import Sidebar from "./Sidebar";
 const Inventory = () => {
   const [sensorData, setSensorData] = useState({
     weight: 1500,
-    distanceone: 0,
-    distancetwo: 0,
+    distance1: 0,
+    distance2: 0,
     ir1: 0,
     ir2: 0,
     ir3: 0,
@@ -50,7 +50,7 @@ const Inventory = () => {
 
   const fetchSensorData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/sensor-data");
+      const response = await fetch("http://192.168.88.137:8000/api/sensor-data");
       if (response.ok) {
         const data = await response.json();
         setSensorData(data); // Update the state with the new sensor data
@@ -80,8 +80,8 @@ const Inventory = () => {
           Quantity: Math.round(limitedWeightPercentage * (product.Total / 100)),
         };
       } else if (product.shelf === 2) {
-        const totalShelfLength = 30;
-        const remainingDistance = sensorData.distanceone || 0;
+        const totalShelfLength = 22;
+        const remainingDistance = sensorData.distance1 || 0;
         const filledSpace = totalShelfLength - remainingDistance;
         const packetsOnShelf = Math.max(
           0,
@@ -91,7 +91,7 @@ const Inventory = () => {
         return { ...product, Quantity: packetsOnShelf };
       } else if (product.shelf === 3) {
         const totalShelfLength = 30;
-        const remainingDistance = sensorData.distancetwo || 0;
+        const remainingDistance = sensorData.distance2 || 0;
         const filledSpace = totalShelfLength - remainingDistance;
         const packetsOnShelf = Math.max(
           0,

@@ -19,7 +19,7 @@ const Shelf1 = () => {
 
   const fetchSensorData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/sensor-data');
+       const response = await fetch('http://192.168.88.137:8000/api/sensor-data'); // Adjust API URL as necessary
       if (response.ok) {
         const data = await response.json();
         setSensorWeight(data.weight);
@@ -38,13 +38,14 @@ const Shelf1 = () => {
   }, []);
 
   const calculateQuantity = () => {
-    const packets = Math.floor(sensorWeight / product.packetWeight);
-    return Math.min(packets, product.Total);
+
+    const packets = Math.floor(Math.max(0,sensorWeight) / product.packetWeight); // Calculate the number of packets
+    return Math.min(packets, product.Total); // Ensure the quantity doesn't exceed the total capacity
   };
 
   const currentQuantity = calculateQuantity();
-  const percentage = Math.round((sensorWeight / maxWeight) * 100);
-
+  // Calculate percentage based on weight from the sensor and max weight
+  const percentage = Math.max(0, Math.min(100, Math.round((sensorWeight / maxWeight) * 100))); // Clamp percentage between 0 and 100
   return (
     <>
       <Navbar />
@@ -70,7 +71,7 @@ const Shelf1 = () => {
                     <h5 className="card-title mb-3 text-center">{product.Product}</h5>
                     <div className="progress-container" style={{ width: '80px' }}>
                       <CircularProgressbar
-                        value={percentage}
+                        value={Math.min(0,percentage)}
                         text={`${percentage}%`}
                         styles={buildStyles({
                           textColor: "black",

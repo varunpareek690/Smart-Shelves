@@ -43,8 +43,8 @@ const IRProductCard = ({ product, irIndex, quantity }) => {
 const Inventory = () => {
   const [sensorData, setSensorData] = useState({
     weight: 1500,
-    distanceone: 0,
-    distancetwo: 0,
+    distance1: 0,
+    distance2: 0,
     ir1: 0,
     ir2: 0,
     ir3: 0,
@@ -66,7 +66,7 @@ const Inventory = () => {
   // Fetch sensor data from the API
   const fetchSensorData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/sensor-data");
+      const response = await fetch("http://192.168.88.137:8000/api/sensor-data");
       if (response.ok) {
         const data = await response.json();
         setSensorData(data); // Update state with the latest sensor data
