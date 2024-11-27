@@ -2,7 +2,6 @@ import React from "react";
 import products from "../GodownProducts.json";
 import '../styles/Products.css'; // Import CSS file for product card styling
 import Navbar from './Navbar';
-import Sidebar from './Sidebar';
 
 const Products = () => {
   return (
@@ -10,20 +9,21 @@ const Products = () => {
       <Navbar />
       <div className="container-fluid">
         <div className="row">
-          <div className="col-2">
-            <Sidebar />
-          </div>
-          <div className="col-10 products-container" style={{ marginTop: '20px' }}>
-            <h1>Available Products</h1>
-            <div className="products-list row row-cols-1 row-cols-md-3 g-2">
+          <div className="col-12" style={{ marginTop: '20px' }}>
+            <h1 className="text-center">Available Products</h1>
+            <div className="products-list row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
               {products.map((product, index) => (
-                <div className="col-md-4" key={index}>
+                <div className="col" key={index}>
                   <div className="card h-100">
                     <img
                       src={`/images/${product.Image}`}
                       alt={product.Product}
                       className="card-img-top"
-                      style={{ width: "100px", height: "100px", margin: "auto" }}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        margin: "20px auto",
+                      }}
                     />
                     <div className="card-body text-center">
                       <h2 className="card-title">{product.Product}</h2>
